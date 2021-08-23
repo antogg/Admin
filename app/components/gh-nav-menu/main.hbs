@@ -64,7 +64,9 @@
                 {{#if (eq this.router.currentRouteName "pages")}}
                     <LinkTo @route="pages" @query={{reset-query-params "pages"}} @classNames="active" data-test-nav="pages">{{svg-jar "page"}}Pages</LinkTo>
                 {{else}}
-                    <LinkTo @route="pages" data-test-nav="pages">{{svg-jar "page"}}Pages</LinkTo>
+                    {{#if this.session.user.isOwnerOrAdmin}}
+                        <LinkTo @route="pages" data-test-nav="pages">{{svg-jar "page"}}Pages</LinkTo>
+                    {{/if}}
                 {{/if}}
             </li>
             {{#if this.showTagsNavigation}}
@@ -85,7 +87,9 @@
                     <LinkTo @route="integrations" @alt="Integrations" @title="Integrations" data-test-nav="dashboard">{{svg-jar "module"}}Integrations</LinkTo>
                 </li>
             {{/if}}
-            <li><LinkTo @route="staff" data-test-nav="staff">{{svg-jar "staff"}}Staff</LinkTo></li>
+            {{#if this.session.user.isOwnerOrAdmin}}
+                <li><LinkTo @route="staff" data-test-nav="staff">{{svg-jar "staff"}}Staff</LinkTo></li>
+            {{/if}}
         </ul>
 
         {{#if this.session.user.isOwner}}
